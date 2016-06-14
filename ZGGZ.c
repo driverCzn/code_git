@@ -6,7 +6,8 @@
 #define HEADER2 " | 编号      | 姓名      | 基本工资  | 奖金      | 扣款      | 应发工资  | 税款      | 实发工资  | \n"
 #define HEADER3 " | --------- | --------- | --------- | --------- | --------- | --------- | --------- | --------- | \n"
 #define END     " ------------------------------------------------------------------------------------------------- \n"
-#define FORMAT  "|%-8s|%-10s|%8.2f|%8.2f|%8.2f|%8.2f|%8.2f|%8.2f|"
+/*#define FORMAT  " |%-8s|%-10s|%8.2f|%8.2f|%8.2f|%8.2f|%8.2f|%8.2f|\n"*/
+#define FORMAT  " |%-11s|%-11s|%11.2f|%11.2f|%11.2f|%11.2f|%11.2f|%11.2f|\n"
 #define DATA tp[i].num,tp[i].name,tp[i].jbgz,tp[i].jj,tp[i].kk,tp[i].yfgz,tp[i].sk,tp[i].sfgz
 #define DATA1 tp[p].num,tp[p].name,tp[p].jbgz,tp[p].jj,tp[p].kk,tp[p].yfgz,tp[p].sk,tp[p].sfgz
 #define N 60
