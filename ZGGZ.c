@@ -190,8 +190,8 @@ int Add(ZGGZ tp[],int n)
     saveflag = 1;
     //如果还有要添加，继续；否则退出。
     printf("如果还有要添加，输入（y or n）：");
-    /*scanf("%c", &choice);*/
-    choice = getchar();
+    scanf("%c", &choice);getchar();
+    /*choice = getchar();*/
     if(choice == 'y' || choice == 'Y') continue;
     break;
   }
