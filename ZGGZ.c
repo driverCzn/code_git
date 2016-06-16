@@ -33,6 +33,7 @@ float numberinput(char *notice);
 int Locate(ZGGZ tp[],int n,char findmess[],int select);
 int Add(ZGGZ tp[],int n);
 int Del(ZGGZ tp[],int n);
+Qur(ZGGZ tp[],int n);
 void Save(ZGGZ tp[],int n);
 
 int main()
@@ -80,7 +81,7 @@ int main()
     {
       case 1:count=Add(gz,count);break;
       case 2:count=Del(gz,count);break;
-      /*case 3:Qur(gz,count);break;*/
+      case 3:Qur(gz,count);break;
       /*case 4:Modify();break;*/
       /*case 5:Insert();break;*/
       /*case 6:Count();break;*/
@@ -246,21 +247,30 @@ int Del(ZGGZ tp[],int n)
         stringinput(tp[count].num, 10, "编号");
       }
     } else if (select == 2) {//按姓名删除
-      stringinput(tp[count].name, 10, "姓名");
+      Disp(tp, count);
+      stringinput(tp[count].name, 15, "姓名");
       if (strcmp(tp[count].name, "0") == 0) {
         menu();
         break;
       }
       while (1) {
-        int k;
-        k = Locate(tp, count, tp[count].num, 1);
-        if (k > 0) break;//找到目标，进行后续操作
-        printf("编号不存在，重新输入\n");
-        stringinput(tp[count].num, 10, "编号");
+        if (k == 0) break;
+        k = Locate(tp, count, tp[count].name, 2);
+        printf("%d\n", k);
+        if (k >= 0) {//找到目标，进行删除
+          for (i = k; i < count; ++i) {
+            tp[i] = tp[i+1];
+            printf("i = %d\n", i);
+          }
+          k = 0;//此处k=0表示删除完成,while开始处检测是否有此标记
+          continue;
+        }
+        printf("姓名不存在，重新输入\n");
+        stringinput(tp[count].name, 15, "姓名");
       }
     } else {//输入错误
       printf("请输入正确选项！\n");
-      return -1;
+      break;
     }
     count--;
     saveflag = 1;
@@ -274,6 +284,12 @@ int Del(ZGGZ tp[],int n)
     break;
   }
   return count;//删除完成
+}
+
+Qur(ZGGZ tp[],int n)
+{
+  /*函数用于在数组tp中按职工编号或者姓名查找满足条件的记录，并显示记录。1 search by number,----------2 search by name\n");*/
+
 }
 
 void Save(ZGGZ tp[],int n)
