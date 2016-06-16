@@ -33,7 +33,7 @@ float numberinput(char *notice);
 int Locate(ZGGZ tp[],int n,char findmess[],int select);
 int Add(ZGGZ tp[],int n);
 int Del(ZGGZ tp[],int n);
-Qur(ZGGZ tp[],int n);
+void Qur(ZGGZ tp[],int n);
 void Save(ZGGZ tp[],int n);
 
 int main()
@@ -126,7 +126,7 @@ void stringinput(char *t,int lens,char *notice)
   while (1) {
     printf("请输入%s, 长度不超过%d:", notice, lens);
     /*gets(t);getchar();*/
-    scanf("%s", t);
+    scanf("%s", t);getchar();
     n = strlen(t);
     if (n <= lens) break;
   }
@@ -275,8 +275,8 @@ int Del(ZGGZ tp[],int n)
     count--;
     saveflag = 1;
     
-    //如果还有要删除，继续；否则退出。
-    printf("如果还有要删除，输入（y or n）：");
+    //如果还要删除，继续；否则退出。
+    printf("如果还要删除，输入(y or n):");
     scanf("%c", &choice);getchar();
     if(choice == 'y' || choice == 'Y') continue;
     printf("\n\n\n\n\n");
@@ -286,10 +286,76 @@ int Del(ZGGZ tp[],int n)
   return count;//删除完成
 }
 
-Qur(ZGGZ tp[],int n)
+void Qur(ZGGZ tp[],int n)
 {
   /*函数用于在数组tp中按职工编号或者姓名查找满足条件的记录，并显示记录。1 search by number,----------2 search by name\n");*/
 
+  int count = n;
+  int i;
+  int select;
+  char choice;
+  int k = -1;
+  while (1) {
+    //输入相关信息
+    printf("1）按编号查询\n2）按姓名查询\n");
+    scanf("%d", &select);
+    if (select == 1) {//按编号查询
+      Disp(tp, count);
+      stringinput(tp[count].num, 10, "编号");
+      if (strcmp(tp[count].num, "0") == 0) {
+        break;
+      }
+      k = Locate(tp, count, tp[count].num, 1);
+      printf("%d\n", k);
+      if (k >= 0) {//找到目标，进行查询
+        for (i = 0; i < count; ++i) {
+          if ( i == k) {
+            printf("%s\n", HEADER2);
+            printf(FORMAT, DATA);
+            printf("%s\n", HEADER3);
+            printf(END);
+            break;
+          }
+        }
+      } else {
+        printf("编号不存在，重新输入\n");
+        stringinput(tp[count].num, 10, "编号");
+      }
+    } else if (select == 2) {//按姓名查询
+      Disp(tp, count);
+      stringinput(tp[count].name, 10, "姓名");
+      if (strcmp(tp[count].name, "0") == 0) {
+        break;
+      }
+      k = Locate(tp, count, tp[count].name, 2);
+      printf("%d\n", k);
+      if (k >= 0) {//找到目标，进行查询
+        for (i = 0; i < count; ++i) {
+          if ( i == k) {
+            printf("%s\n", HEADER2);
+            printf(FORMAT, DATA);
+            printf("%s\n", HEADER3);
+            printf(END);
+            break;
+          }
+        }
+      } else {
+        printf("编号不存在，重新输入\n");
+        stringinput(tp[count].name, 10, "姓名");
+      }
+    } else {//输入错误
+      printf("请输入正确选项！\n");
+      break;
+    }
+    
+    //如果还要查询，继续；否则退出。
+    printf("如果还要查询，输入(y or n):");
+    scanf("%c", &choice);getchar();
+    if(choice == 'y' || choice == 'Y') continue;
+    printf("\n\n\n\n\n");
+    menu();//query操作完成后显示菜单供选择
+    break;
+  }
 }
 
 void Save(ZGGZ tp[],int n)
