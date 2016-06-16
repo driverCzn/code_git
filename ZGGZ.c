@@ -43,7 +43,7 @@ int main()
 	int    select;
 	char   choice;
 	int    count=0;
-	fp=fopen("zggz","ab+");
+	fp=fopen("db","ab+");
 
   //判断文件是否打开成功
 	if(fp==NULL) {
@@ -296,7 +296,7 @@ void Save(ZGGZ tp[],int n)
 {  
   int i;
   FILE *fp;
-  fp = fopen("zggz", "wb+");
+  fp = fopen("db", "wb+");
   if (fp == NULL) {
     printf("\n-----------------cannot open file");
     exit(0);
