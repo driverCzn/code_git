@@ -1,6 +1,7 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <curses.h>
 //#include<conio.h>
 #define HEADER1 " --------------------------------------------ZGGZ------------------------------------------------- \n"
 #define HEADER2 " | 编号      | 姓名      | 基本工资  | 奖金      | 扣款      | 应发工资  | 税款      | 实发工资  | \n"
@@ -196,6 +197,7 @@ int Add(ZGGZ tp[],int n)
     if(choice == 'y' || choice == 'Y') continue;
     break;
   }
+  clear();
   return count;
   /*int add(ZGGZ TP[],int n )*/
 /*[>函数用于在数组tp中增加工资记录元素，并返回数组中的当前记录数。<]*/
