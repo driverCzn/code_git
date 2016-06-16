@@ -32,7 +32,7 @@ void stringinput(char *t,int lens,char *notice);
 float numberinput(char *notice);
 int Locate(ZGGZ tp[],int n,char findmess[],int select);
 int Add(ZGGZ tp[],int n);
-/*int Del(ZGGZ tp[],int n);*/
+int Del(ZGGZ tp[],int n);
 void Save(ZGGZ tp[],int n);
 
 int main()
@@ -79,7 +79,7 @@ int main()
     switch(select)
     {
       case 1:count=Add(gz,count);break;
-      /*case 2:count=Del(gz,count);break;*/
+      case 2:count=Del(gz,count);break;
       /*case 3:Qur(gz,count);break;*/
       /*case 4:Modify();break;*/
       /*case 5:Insert();break;*/
@@ -115,8 +115,8 @@ void Disp(ZGGZ tp[],int n)
     printf("%s\n", HEADER3);
   }
   printf(END);
-  /*printf("\n\n\n\n\n");*/
-  /*menu();*/
+  printf("\n\n\n\n\n");
+  menu();
 }
 
 void stringinput(char *t,int lens,char *notice)
@@ -209,77 +209,72 @@ int Add(ZGGZ tp[],int n)
 /*函数用于在数组tp中增加工资记录元素，并返回数组中的当前记录数。*/
 }
 
-/*int Del(ZGGZ tp[],int n)*/
-/*{*/
-/*[>函数用于先在数组tp中找到满足条件的记录，然后删除该记录。<]*/
-/*[>-1 delete by number,----------2 delete by name\n"<]*/
+int Del(ZGGZ tp[],int n)
+{
+/*函数用于先在数组tp中找到满足条件的记录，然后删除该记录。*/
+/*-1 delete by number,----------2 delete by name\n"*/
 
-  /*int count = n;*/
-  /*int i;*/
-  /*int select;*/
-  /*char choice;*/
-  /*while (1) {*/
-    /*//输入相关信息*/
-    /*printf("1）按编号删除\n2）按姓名删除\n");*/
-    /*scanf("%d", &select);*/
-
-    /*if (select == 1) {//按编号删除*/
-      /*Disp(tp, count);*/
-      /*stringinput(tp[count].num, 10, "编号");*/
-      /*if (strcmp(tp[count].num, "0") == 0) {*/
-        /*menu();*/
-        /*break;*/
-      /*}*/
-      /*while (1) {*/
-        /*int k;*/
-        /*k = Locate(tp, count, tp[count].num, 1);*/
-        /*if (k > 0) {//找到目标，进行后续操作*/
-          /*for (i = k; i < count; ++i) {*/
-            /*tp[i] = tp[i+1];*/
-          /*}*/
-          /*break;*/
-        /*}*/
-        /*printf("编号不存在，重新输入\n");*/
-        /*stringinput(tp[count].num, 10, "编号");*/
-      /*}*/
-    /*} else if (select == 2) {//按姓名删除*/
-      /*stringinput(tp[count].name, 10, "姓名");*/
-        /*if (strcmp(tp[count].name, "0") == 0) {*/
-          /*menu();*/
-          /*break;*/
-        /*}*/
-        /*while (1) {*/
-          /*int k;*/
-          /*k = Locate(tp, count, tp[count].num, 1);*/
-          /*if (k > 0) break;//找到目标，进行后续操作*/
-          /*printf("编号不存在，重新输入\n");*/
-          /*stringinput(tp[count].num, 10, "编号");*/
-        /*}*/
-    /*} else {//输入错误*/
-      /*printf("请输入正确选项！\n");*/
-      /*break;*/
-    /*}*/
-    /*[>stringinput(tp[count].name, 15, "姓名");<]*/
-    /*[>tp[count].jbgz = numberinput("基本工资");<]*/
-    /*[>tp[count].jj = numberinput("奖金");<]*/
-    /*[>tp[count].kk = numberinput("扣款");<]*/
-    /*[>//完成相关计算，count++<]*/
-    /*[>tp[count].yfgz = tp[count].jbgz + tp[count].jj - tp[count].kk;<]*/
-    /*[>tp[count].sk = tp[count].yfgz * 0.4;<]*/
-    /*[>tp[count].sfgz = tp[count].yfgz - tp[count].sk;<]*/
-    /*count--;*/
-    /*saveflag = 1;*/
+  int count = n;
+  int i;
+  int select;
+  char choice;
+  int k = -1;
+  while (1) {
+    //输入相关信息
+    printf("1）按编号删除\n2）按姓名删除\n");
+    scanf("%d", &select);
+    if (select == 1) {//按编号删除
+      Disp(tp, count);
+      stringinput(tp[count].num, 10, "编号");
+      if (strcmp(tp[count].num, "0") == 0) {
+        menu();
+        break;
+      }
+      while (1) {
+        if (k == 0) break;
+        k = Locate(tp, count, tp[count].num, 1);
+        printf("%d\n", k);
+        if (k >= 0) {//找到目标，进行删除
+          for (i = k; i < count; ++i) {
+            tp[i] = tp[i+1];
+            printf("i = %d\n", i);
+          }
+          k = 0;//此处k=0表示删除完成,while开始处检测是否有此标记
+          continue;
+        }
+        printf("编号不存在，重新输入\n");
+        stringinput(tp[count].num, 10, "编号");
+      }
+    } else if (select == 2) {//按姓名删除
+      stringinput(tp[count].name, 10, "姓名");
+      if (strcmp(tp[count].name, "0") == 0) {
+        menu();
+        break;
+      }
+      while (1) {
+        int k;
+        k = Locate(tp, count, tp[count].num, 1);
+        if (k > 0) break;//找到目标，进行后续操作
+        printf("编号不存在，重新输入\n");
+        stringinput(tp[count].num, 10, "编号");
+      }
+    } else {//输入错误
+      printf("请输入正确选项！\n");
+      return -1;
+    }
+    count--;
+    saveflag = 1;
     
-    /*//如果还有要删除，继续；否则退出。*/
-    /*printf("如果还有要删除，输入（y or n）：");*/
-    /*scanf("%c", &choice);getchar();*/
-    /*if(choice == 'y' || choice == 'Y') continue;*/
-    /*printf("\n\n\n\n\n");*/
-    /*menu();//添加操作完成后显示菜单供选择*/
-    /*break;*/
-  /*}*/
-    /*return 0;//删除完成*/
-/*}*/
+    //如果还有要删除，继续；否则退出。
+    printf("如果还有要删除，输入（y or n）：");
+    scanf("%c", &choice);getchar();
+    if(choice == 'y' || choice == 'Y') continue;
+    printf("\n\n\n\n\n");
+    menu();//添加操作完成后显示菜单供选择
+    break;
+  }
+  return count;//删除完成
+}
 
 void Save(ZGGZ tp[],int n)
 {  
