@@ -35,6 +35,7 @@ int Add(ZGGZ tp[],int n);
 int Del(ZGGZ tp[],int n);
 void Qur(ZGGZ tp[],int n);
 void Modify(ZGGZ tp[],int n);
+void Sort(ZGGZ tp[],int n);
 void Save(ZGGZ tp[],int n);
 
 int main()
@@ -86,7 +87,7 @@ int main()
       case 4:Modify(gz,count);break;
       /*case 5:Insert();break;*/
       /*case 6:Count();break;*/
-      /*case 7:Sort();break;*/
+      case 7:Sort(gz,count);break;
       case 8:Save(gz,count);break;
       case 9:Disp(gz,count);break;
       /*default :Wrong();break;*/
@@ -391,6 +392,24 @@ void Modify(ZGGZ tp[], int n)
   tp[k].sfgz = tp[k].yfgz - tp[k].sk;
   saveflag = 1;
   Disp(tp, count);
+}
+
+void Sort(ZGGZ tp[],int n)
+{
+  int count = n;
+  int i;
+  int j;
+  ZGGZ tmp;
+  for (j = 0; j < count; j++) {
+    for (i = j; i < count - j; ++i) {
+      if (tp[i].sfgz < tp[i+1].sfgz) {
+        tmp = tp[i+1];
+        tp[i+1] = tp[i];
+        tp[i] = tmp;
+      }
+    }
+  }
+  saveflag = 1;
 }
 
 void Save(ZGGZ tp[],int n)
