@@ -300,7 +300,7 @@ void Qur(ZGGZ tp[],int n)
     printf("1）按编号查询\n2）按姓名查询\n");
     scanf("%d", &select);
     if (select == 1) {//按编号查询
-      Disp(tp, count);
+      /*Disp(tp, count);*/
       stringinput(tp[count].num, 10, "编号");
       if (strcmp(tp[count].num, "0") == 0) {
         break;
@@ -320,9 +320,10 @@ void Qur(ZGGZ tp[],int n)
       } else {
         printf("编号不存在，重新输入\n");
         stringinput(tp[count].num, 10, "编号");
+        continue;
       }
     } else if (select == 2) {//按姓名查询
-      Disp(tp, count);
+      /*Disp(tp, count);*/
       stringinput(tp[count].name, 10, "姓名");
       if (strcmp(tp[count].name, "0") == 0) {
         break;
@@ -342,10 +343,11 @@ void Qur(ZGGZ tp[],int n)
       } else {
         printf("编号不存在，重新输入\n");
         stringinput(tp[count].name, 10, "姓名");
+        continue;
       }
     } else {//输入错误
       printf("请输入正确选项！\n");
-      break;
+      continue;
     }
     
     //如果还要查询，继续；否则退出。
