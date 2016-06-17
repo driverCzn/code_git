@@ -34,6 +34,7 @@ int Locate(ZGGZ tp[],int n,char findmess[],int select);
 int Add(ZGGZ tp[],int n);
 int Del(ZGGZ tp[],int n);
 void Qur(ZGGZ tp[],int n);
+void Modify(ZGGZ tp[],int n);
 void Save(ZGGZ tp[],int n);
 
 int main()
@@ -82,7 +83,7 @@ int main()
       case 1:count=Add(gz,count);break;
       case 2:count=Del(gz,count);break;
       case 3:Qur(gz,count);break;
-      /*case 4:Modify();break;*/
+      case 4:Modify(gz,count);break;
       /*case 5:Insert();break;*/
       /*case 6:Count();break;*/
       /*case 7:Sort();break;*/
@@ -358,6 +359,38 @@ void Qur(ZGGZ tp[],int n)
     menu();//query操作完成后显示菜单供选择
     break;
   }
+}
+
+void Modify(ZGGZ tp[], int n)
+{
+  int count = n;
+  int k;
+  char tmp_name[15];
+  char tmp_num[10];
+  if (count == 0) {
+    return ;
+  }
+  Disp(tp, count);
+  printf("请输入修改编号\n");
+  stringinput(tp[count].num, 10, "编号");
+  if (strcmp(tp[count].num, "0") == 0) {
+    return ;
+  }
+  k = Locate(tp, count, tp[count].num, 1);
+  if (k < 0) return;//未找到直接返回主菜单
+  stringinput(tmp_num, 10, "新编号");
+  strcpy(tp[k].num, tmp_num);
+  stringinput(tmp_name, 15, "新姓名");
+  strcpy(tp[k].name, tmp_name);
+  tp[k].jbgz = numberinput("新基本工资");
+  tp[k].jj = numberinput("新奖金");
+  tp[k].kk = numberinput("新扣款");
+  //完成相关计算
+  tp[k].yfgz = tp[k].jbgz + tp[k].jj - tp[k].kk;
+  tp[k].sk = tp[k].yfgz * 0.4;
+  tp[k].sfgz = tp[k].yfgz - tp[k].sk;
+  saveflag = 1;
+  Disp(tp, count);
 }
 
 void Save(ZGGZ tp[],int n)
