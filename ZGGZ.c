@@ -35,6 +35,7 @@ int Add(ZGGZ tp[],int n);
 int Del(ZGGZ tp[],int n);
 void Qur(ZGGZ tp[],int n);
 void Modify(ZGGZ tp[],int n);
+int Insert(ZGGZ tp[], int n);
 void Sort(ZGGZ tp[],int n);
 void Save(ZGGZ tp[],int n);
 
@@ -85,7 +86,7 @@ int main()
       case 2:count=Del(gz,count);break;
       case 3:Qur(gz,count);break;
       case 4:Modify(gz,count);break;
-      /*case 5:Insert();break;*/
+      case 5:Insert(gz,count);break;
       /*case 6:Count();break;*/
       case 7:Sort(gz,count);break;
       case 8:Save(gz,count);break;
@@ -240,7 +241,7 @@ int Del(ZGGZ tp[],int n)
         if (k >= 0) {//找到目标，进行删除
           for (i = k; i < count; ++i) {
             tp[i] = tp[i+1];
-            printf("i = %d\n", i);
+            /*printf("i = %d\n", i);*/
           }
           k = 0;//此处k=0表示删除完成,while开始处检测是否有此标记
           continue;
@@ -394,6 +395,34 @@ void Modify(ZGGZ tp[], int n)
   Disp(tp, count);
 }
 
+int Insert(ZGGZ tp[], int n)
+{
+  int count = n;
+  int i;
+  Disp(tp,count);
+  while(1){
+    int k;
+    stringinput(tp[count].num, 10, "编号");
+    k = Locate(tp, count, tp[count].num, 1);
+    if (k < 0) continue;
+    for (i = count; i > k; --i) {
+      tp[i] = tp[i-1];
+    }
+    stringinput(tp[k].num, 10, "新编号");
+    stringinput(tp[k].name, 15, "新姓名");
+    tp[k].jbgz = numberinput("新基本工资");
+    tp[k].jj = numberinput("新奖金");
+    tp[k].kk = numberinput("新扣款");
+    //完成相关计算
+    tp[k].yfgz = tp[k].jbgz + tp[k].jj - tp[k].kk;
+    tp[k].sk = tp[k].yfgz * 0.4;
+    tp[k].sfgz = tp[k].yfgz - tp[k].sk;
+    count++;
+    saveflag = 1;
+    Disp(tp, count);
+    return count;
+  }
+}
 void Sort(ZGGZ tp[],int n)
 {
   int count = n;
