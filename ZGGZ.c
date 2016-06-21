@@ -478,8 +478,8 @@ void Sort(ZGGZ tp[],int n)
   int i;
   int j;
   ZGGZ tmp;
-  for (j = 0; j < count; j++) {
-    for (i = j; i < count - j; ++i) {
+  for (j = 0; j < count - 1; j++) {
+    for (i = 0; i < count - j - 1; ++i) {
       if (tp[i].sfgz < tp[i+1].sfgz) {
         tmp = tp[i+1];
         tp[i+1] = tp[i];
