@@ -52,10 +52,10 @@
   /*printf("this is insert");*/
 /*}*/
 
-void Count()
-{
-  printf("this is count");
-}
+/*void Count()*/
+/*{*/
+  /*printf("this is count");*/
+/*}*/
 
 /*void Sort()*/
 /*{*/
@@ -68,12 +68,11 @@ void Count()
 /*}*/
 
 
-void Wrong()
-{
-	printf("********Error,input has wrong,please input 0-9,press anykey to continue\n");
-	getchar();
-
-}
+/*void Wrong()*/
+/*{*/
+	/*printf("********Error,input has wrong,please input 0-9,press anykey to continue\n");*/
+	/*getchar();*/
+/*}*/
 
 /*int main()*/
 /*{*/

@@ -36,8 +36,10 @@ int Del(ZGGZ tp[],int n);
 void Qur(ZGGZ tp[],int n);
 void Modify(ZGGZ tp[],int n);
 int Insert(ZGGZ tp[], int n);
+void Count(ZGGZ tp[], int n);
 void Sort(ZGGZ tp[],int n);
 void Save(ZGGZ tp[],int n);
+void Wrong();
 
 int main()
 {
@@ -87,11 +89,11 @@ int main()
       case 3:Qur(gz,count);break;
       case 4:Modify(gz,count);break;
       case 5:Insert(gz,count);break;
-      /*case 6:Count();break;*/
+      case 6:Count(gz,count);break;
       case 7:Sort(gz,count);break;
       case 8:Save(gz,count);break;
       case 9:Disp(gz,count);break;
-      /*default :Wrong();break;*/
+      default :Wrong();break;
     }
   }
   return 0;
@@ -218,6 +220,7 @@ int Del(ZGGZ tp[],int n)
 /*函数用于先在数组tp中找到满足条件的记录，然后删除该记录。*/
 /*-1 delete by number,----------2 delete by name\n"*/
 
+  if (n == 0) return -1;
   int count = n;
   int i;
   int select;
@@ -293,6 +296,7 @@ void Qur(ZGGZ tp[],int n)
 {
   /*函数用于在数组tp中按职工编号或者姓名查找满足条件的记录，并显示记录。1 search by number,----------2 search by name\n");*/
 
+  if (n == 0) return;
   int count = n;
   int i;
   int select;
@@ -365,6 +369,7 @@ void Qur(ZGGZ tp[],int n)
 
 void Modify(ZGGZ tp[], int n)
 {
+  if (n == 0) return;
   int count = n;
   int k;
   char tmp_name[15];
@@ -397,6 +402,7 @@ void Modify(ZGGZ tp[], int n)
 
 int Insert(ZGGZ tp[], int n)
 {
+  if (n == 0) return -1;
   int count = n;
   int i;
   Disp(tp,count);
@@ -423,8 +429,40 @@ int Insert(ZGGZ tp[], int n)
     return count;
   }
 }
+
+void Count(ZGGZ tp[], int n)
+{
+  int lower;
+  int upper;
+  int count = n;
+  int cnt = 0;//统计人数
+  int i;
+  printf("请输入最低工资\n");
+  scanf("%d", &lower);
+  printf("请输入最高工资\n");
+  scanf("%d", &upper);
+  for ( i = 0; i < count; ++i) {
+    tp[i].sfgz >= lower &&
+    tp[i].sfgz <= upper &&
+    cnt++;
+  }
+  if ( cnt > 0 ) {
+    printf("搜索范围内共%d人\n", cnt);
+  } else {
+    printf("无符合条件人员!\n");
+  }
+}
+
+void Wrong()
+{
+	printf("********Error,input has wrong,please input 0-9,press anykey to continue\n");
+	getchar();
+
+}
+
 void Sort(ZGGZ tp[],int n)
 {
+  if (n == 0) return;
   int count = n;
   int i;
   int j;
