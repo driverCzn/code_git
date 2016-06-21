@@ -313,7 +313,6 @@ void Qur(ZGGZ tp[],int n)
         break;
       }
       k = Locate(tp, count, tp[count].num, 1);
-      printf("%d\n", k);
       if (k >= 0) {//找到目标，进行查询
         for (i = 0; i < count; ++i) {
           if ( i == k) {
@@ -372,8 +371,7 @@ void Modify(ZGGZ tp[], int n)
   if (n == 0) return;
   int count = n;
   int k;
-  char tmp_name[15];
-  char tmp_num[10];
+  char select;
   if (count == 0) {
     return ;
   }
@@ -385,13 +383,26 @@ void Modify(ZGGZ tp[], int n)
   }
   k = Locate(tp, count, tp[count].num, 1);
   if (k < 0) return;//未找到直接返回主菜单
-  stringinput(tmp_num, 10, "新编号");
-  strcpy(tp[k].num, tmp_num);
-  stringinput(tmp_name, 15, "新姓名");
-  strcpy(tp[k].name, tmp_name);
-  tp[k].jbgz = numberinput("新基本工资");
-  tp[k].jj = numberinput("新奖金");
-  tp[k].kk = numberinput("新扣款");
+  printf("修改编号? y or n\n");
+  scanf("%c", &select);getchar();
+  if ( select == 'y' || select == 'Y') 
+    stringinput(tp[k].num, 10, "新编号");
+  printf("修改姓名? y or n\n");
+  scanf("%c", &select);getchar();
+  if ( select == 'y' || select == 'Y') 
+    stringinput(tp[k].name, 15, "新姓名");
+  printf("修改基本工资? y or n\n");
+  scanf("%c", &select);getchar();
+  if ( select == 'y' || select == 'Y') 
+    tp[k].jbgz = numberinput("新基本工资");
+  printf("修改奖金? y or n\n");
+  scanf("%c", &select);getchar();
+  if ( select == 'y' || select == 'Y') 
+    tp[k].jj = numberinput("新奖金");
+  printf("修改扣款? y or n\n");
+  scanf("%c", &select);getchar();
+  if ( select == 'y' || select == 'Y') 
+    tp[k].kk = numberinput("新扣款");
   //完成相关计算
   tp[k].yfgz = tp[k].jbgz + tp[k].jj - tp[k].kk;
   tp[k].sk = tp[k].yfgz * 0.4;
